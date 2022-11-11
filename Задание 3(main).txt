@@ -1,0 +1,23 @@
+package photoAlbum;
+ 
+public class Main {
+    
+    public static void main(String[] args) {
+        Photo.addPhoto();
+        Photo.addPhoto("My cat");
+        Photo.addPhoto();
+        Photo.addPhoto("My cat again");
+        Photo.addPhoto();
+        
+        Photo.printPhotos();
+        
+        Photo.changeName("My cat", "And again...");
+        Photo.changeName("Some_picture.gif", "New name");
+        Photo.changeName("untitled_photo_3.жпг", "titled photo 48");
+        
+        Photo.printPhotos();
+        
+        Album.printPageCount();
+        Album.printPhotoCount();
+    }
+}

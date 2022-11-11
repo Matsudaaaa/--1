@@ -1,0 +1,81 @@
+package photoAlbum;
+ 
+public class Photo extends Album {
+    private static int photoCount = 0;//кол-во фотографий
+    private int photoNumber;//номер фотографии (для безымянных (untitled))
+    private String name;
+    
+    //канстьютай
+    public Photo() {
+        photoCount++;
+        this.photoNumber = photoCount;
+        this.name = "untitled_photo_" + photoNumber + ".жпг";
+    }
+    
+    //канстьютай
+    public Photo(String name) {
+        photoCount++;
+        this.name = name;
+    }
+    
+    //создает и добавляет фотографию на лист альбома
+    public static void addPhoto() {
+        Page.addPhotoToList(new Photo());
+        System.out.println("Photo was added [" + "untitled_photo_" + photoCount + "].жпг");
+    }
+    
+    //создает и добавляет фотографию на лист альбома
+    public static void addPhoto(String name) {
+        Page.addPhotoToList(new Photo(name));
+        System.out.println("Photo was added [" + name + "]");
+    }
+    
+    //вызывает поиск объекта с указанным именем в списке фотографий (photoList)
+    public static void changeName(String currentName, String newName) {
+        if(getPhoto(currentName) != null) {
+            getPhoto(currentName).setName(newName);
+            System.out.printf("Photo was cnanged [" + currentName + " -> " + newName + "]%n");
+        }
+        else
+            System.out.println("Photo [" + currentName + "] not found");
+    }
+    
+    //возвращает ссылку на объект с указанным именем
+    public static Photo getPhoto(String currentName) {
+        for(Page page : getPageList())
+            for(Photo photo : page.getPhotoList())
+                if(photo.getName().equals(currentName))
+                    return photo;
+        return null;
+    }
+    
+    //печатает список фотографий с указанием страницы, на которой та находится
+    public static void printPhotos() {
+        System.out.printf("%nPhotos list:%n");
+        for(Page page : getPageList())
+            for(Photo photo : page.getPhotoList())
+                System.out.println(page + " " + photo);
+        System.out.println();
+    }
+    
+    //возвращает имя фотографии
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    //возвращает имя объекта
+    public String getName() {
+        return name;
+    }
+    
+    //возвращает кол-во фотографий в альбоме
+    public static int getPhotoCount() {
+        return photoCount;
+    }
+    
+    @Override
+    public String toString() {
+        return "Photo[" + this.name + "]";
+    }
+    
+}

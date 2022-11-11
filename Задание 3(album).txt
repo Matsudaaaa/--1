@@ -1,0 +1,29 @@
+package photoAlbum;
+ 
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class Album {
+    private static List<Page> pageList = new ArrayList<>();//список листов альбома (Page)
+ 
+    //канстьютай
+    public Album() {
+        
+    }
+    
+    //возвращает список листов альбома (pageList)
+    public static List<Page> getPageList() {
+        return pageList;
+    }
+    
+    //печатает кол-во фотографий в альбоме
+    public static void printPhotoCount() {
+        System.out.println("Photo's count: " + Photo.getPhotoCount());
+    }
+    
+    //печатает кол-во листов в альбоме
+    public static void printPageCount() {
+        System.out.println("Page's count: " + Page.getPageCount());
+    }
+    
+}

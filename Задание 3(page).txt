@@ -1,0 +1,64 @@
+package photoAlbum;
+ 
+import java.util.List;
+import java.util.ArrayList;
+ 
+public class Page extends Album {
+    private List<Photo> photoList = new ArrayList<>();//список фотографий на каждой странице
+    private static final int photoLimit = 2;//максимально допустимое кол-во фотографий на одном листе
+    private static int pageCount = 0;//кол-во страниц
+    private int pageNumber;//номер текущей страницы
+    
+    //канстьютай
+    public Page() {
+        pageCount++;
+        this.pageNumber = pageCount;
+    }
+    
+    //добавляет новый лист (Page), если их нет или текущий заполнен
+    public static void addPhotoToList(Photo photo) {
+        if(getPageList().isEmpty() || currentPageIsFull())
+            getPageList().add(new Page());
+        getPageList().get(getLastElementIndex()).photoList.add(photo);
+    }
+    
+    //если длина списка делится на лимит фотографий без остатка, то этот лист заполнен (возвращает true)
+    public static boolean currentPageIsFull() {
+        return getPhotoListSize() % getPhotoLimit() == 0;
+    }
+    
+    //возвращает размер photoList
+    public static int getPhotoListSize() {
+        return getPageList().get(getLastElementIndex()).photoList.size();
+    }
+    
+    //возвращает максимально допустимое кол-во фотографий на одном листе
+    public static int getPhotoLimit() {
+        return photoLimit;
+    }
+    
+    //возвращает номер последнего элемента pageList если pageList пуст, то номер последнего элемента 0
+    public static int getLastElementIndex() {
+        int index;
+        if(!getPageList().isEmpty())
+            index = getPageList().size()-1;
+        else
+            index = 0;
+        return index;
+    }
+    
+    //метод ищет объект Photo в списке фотографий по имени и возвращает ссылку на него
+    public List<Photo> getPhotoList() {
+        return this.photoList;
+    }
+    
+    //возвращает кол-во листов в альбоме
+    public static int getPageCount() {
+        return pageCount;
+    }
+    
+    @Override
+    public String toString() {
+        return "Page[" + this.pageNumber + " of " + pageCount + "]";
+    }
+}
